@@ -29,8 +29,10 @@ pipeline {
             }
         }
         stage("Docker run app"){
-           sh "docker pull wsassi/gestionSkiFront:latest"
+          steps{
+             sh "docker pull wsassi/gestionSkiFront:latest"
            sh "docker run -d -p 3001:3001 gestionSkiFront:latest"
+          }
 
         }
     }
