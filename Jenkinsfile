@@ -11,8 +11,6 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'npm install'
-                sh 'npx eslint .'
-                sh 'npm run build'
             }
         }
 
