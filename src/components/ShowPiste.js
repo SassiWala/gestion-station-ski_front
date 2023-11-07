@@ -2,7 +2,6 @@ import React from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import {
   Button,
@@ -11,14 +10,8 @@ import {
   MenuItem,
   Select,
   TextField,
-  Typography,
 } from "@mui/material";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import StarIcon from "@mui/icons-material/Star";
+
 export default function ShowPiste({ handleClose, open, row }) {
   return (
     <Dialog open={open} onClose={handleClose}>

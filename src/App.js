@@ -1,5 +1,4 @@
 import { Button, Container, Typography } from "@mui/material";
-import "./app.css";
 import AllPistes from "./components/AllPistes";
 import { useState } from "react";
 import AddPiste from "./components/AddPiste";
