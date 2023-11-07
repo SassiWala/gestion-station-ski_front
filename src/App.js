@@ -1,24 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { Button, Container, Typography } from "@mui/material";
+import "./app.css";
+import AllPistes from "./components/AllPistes";
+import { useState } from "react";
+import AddPiste from "./components/AddPiste";
 function App() {
+  const [open, setOpen] = useState(false);
+  const [refresh, setRefresh] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container
+      fixed
+      sx={{
+        backgroundColor: "#f7f4f4",
+        my: "25px",
+        py: "25px",
+        borderRadius: "0.5em",
+      }}
+    >
+      <Typography sx={{ textAlign: "center" }} variant="h5">
+        Piste Management
+      </Typography>
+      <Button sx={{ my: "10px" }} variant="contained" onClick={handleClickOpen}>
+        Add Piste
+      </Button>
+      <AddPiste
+        refresh={() => setRefresh()}
+        open={open}
+        handleClose={handleClose}
+      />
+      <AllPistes refresh={refresh} />
+    </Container>
   );
 }
 
