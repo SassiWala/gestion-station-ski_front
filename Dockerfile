@@ -6,7 +6,7 @@ COPY public/ /gestion_station_ski_front/public
 COPY src/ /gestion_station_ski_front/src
 COPY package.json /gestion_station_ski_front/
 
-RUN npm install
+RUN npm install -g npm@10.2.3
 
 CMD ["npm", "start"]
 
