@@ -8,5 +8,7 @@ COPY package.json /gestion_station_ski_front/
 
 RUN npm install -g npm@10.2.3
 
+RUN npm install
+
 CMD ["npm", "start"]
 
