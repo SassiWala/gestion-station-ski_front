@@ -5,35 +5,38 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'master', url: 'https://github.com/SassiWala/gestion-station-ski_front.git'
+                sh 'git pull origin master'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'npm install'
+                sh 'npm cache clean -force'
+                sh 'rm -rf node_modules'
+                sh 'npm install node'
                 sh 'npm run build'
             }
         }
 
-        stage('Docker Build') {
-            steps {
-                   sh "docker build -t wsassi/gestionSkiFront ."
-            }
-        }
+        // stage('Docker Build') {
+        //     steps {
+        //            sh "docker build -t wsassi/gestionskifront ."
+        //     }
+        // }
 
-        stage('Docker Push') {
-            steps {
-                // Push the Docker image to a container registry.
-                sh "docker login "
-                sh "docker push wsassi/gestionSkiFront "
-            }
-        }
-        stage("Docker run app"){
-          steps{
-             sh "docker pull wsassi/gestionSkiFront:latest"
-           sh "docker run -d -p 3001:3001 gestionSkiFront:latest"
-          }
+        // stage('Docker Push') {
+        //     steps {
+        //         // Push the Docker image to a container registry.
+        //         sh "docker login "
+        //         sh "docker push wsassi/gestionskifront "
+        //     }
+        // }
+        // stage("Docker run app"){
+        //   steps{
+        //      sh "docker pull wsassi/gestionskifront:latest"
+        //    sh "docker run -d -p 3001:3001 gestionskifront:latest"
+        //   }
 
-        }
+        // }
     }
 }
