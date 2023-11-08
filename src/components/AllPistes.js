@@ -8,8 +8,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { Delete, Update, Visibility } from "@mui/icons-material";
+import { Delete, Visibility } from "@mui/icons-material";
 import ShowPiste from "./ShowPiste";
+import { CircularProgress, Typography } from "@mui/material";
 
 const columns = [
   {
@@ -87,9 +88,6 @@ export default function AllPistes({ refresh }) {
 
   useEffect(() => {
     getPistes();
-    if (loading == false) {
-      console.log("rows=>", rows);
-    }
   }, [loading, refresh, deleted]);
   const handleDelete = async (id) => {
     await axios.delete(`${process.env.REACT_APP_API_ENDPOINT}/delete/${id}`);
@@ -120,74 +118,88 @@ export default function AllPistes({ refresh }) {
       });
   };
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover role="checkbox" key={row.piste} tabIndex={-1}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <>
-                          <TableCell key={column.id} align={column.align}>
-                            {!column.format ? (
-                              <>
-                                <Visibility
-                                  color="success"
-                                  onClick={handleClickOpen}
-                                />
-                                <ShowPiste
-                                  row={row}
-                                  handleClose={handleClose}
-                                  open={open}
-                                />
+    <>
+      {loading ? (
+        <CircularProgress />
+      ) : err ? (
+        <Typography>Something happened</Typography>
+      ) : (
+        <Paper sx={{ width: "100%", overflow: "hidden" }}>
+          <TableContainer sx={{ maxHeight: 440 }}>
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow>
+                  {columns.map((column) => (
+                    <TableCell
+                      key={column.id}
+                      align={column.align}
+                      style={{ minWidth: column.minWidth }}
+                    >
+                      {column.label}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row) => {
+                    return (
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        key={row.piste}
+                        tabIndex={-1}
+                      >
+                        {columns.map((column) => {
+                          const value = row[column.id];
+                          return (
+                            <>
+                              <TableCell key={column.id} align={column.align}>
+                                {!column.format ? (
+                                  <>
+                                    <Visibility
+                                      color="success"
+                                      onClick={handleClickOpen}
+                                    />
+                                    <ShowPiste
+                                      row={row}
+                                      handleClose={handleClose}
+                                      open={open}
+                                    />
 
-                                <Delete
-                                  color="error"
-                                  onClick={() => handleDelete(row.id)}
-                                />
-                              </>
-                            ) : column.format && typeof value === "number" ? (
-                              column.format(value)
-                            ) : (
-                              value
-                            )}
-                          </TableCell>
-                        </>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </Paper>
+                                    <Delete
+                                      color="error"
+                                      onClick={() => handleDelete(row.id)}
+                                    />
+                                  </>
+                                ) : column.format &&
+                                  typeof value === "number" ? (
+                                  column.format(value)
+                                ) : (
+                                  value
+                                )}
+                              </TableCell>
+                            </>
+                          );
+                        })}
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[10, 25, 100]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
+      )}
+    </>
   );
 }
