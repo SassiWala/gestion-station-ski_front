@@ -18,11 +18,11 @@ pipeline {
             }
         }
 
-        // stage('Docker Build') {
-        //     steps {
-        //            sh "docker build -t wsassi/gestionskifront ."
-        //     }
-        // }
+        stage('Docker Image') {
+            steps {
+                   sh "docker build -t wsassi/gestion_station_ski_front ."
+            }
+        }
 
         // stage('Docker Push') {
         //     steps {
