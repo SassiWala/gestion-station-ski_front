@@ -11,6 +11,8 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'npm install'
+                sh 'npm i -D jest-worker@27.3.1'
+                sh 'node --max_old_space_size=2768 node_modules/webpack-cli/bin/cli.js --mode production'
                 sh 'npm run build'
             }
         }
