@@ -5,6 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'master', url: 'https://github.com/SassiWala/gestion-station-ski_front.git'
+                sh 'git pull origin master'
             }
         }
 
