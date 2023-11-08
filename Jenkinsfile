@@ -11,7 +11,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'npm install'
-                sh 'npm i -D jest-worker@27.3.1'
+                sh 'npm install eslint-webpack-plugin --save-dev'
                 sh 'npm run build'
             }
         }
