@@ -24,13 +24,13 @@ pipeline {
             }
         }
 
-        // stage('Docker Push') {
-        //     steps {
-        //         // Push the Docker image to a container registry.
-        //         sh "docker login "
-        //         sh "docker push wsassi/gestionskifront "
-        //     }
-        // }
+        stage('Docker Push') {
+            steps {
+                // Push the Docker image to a container registry.
+                sh "docker login "
+                sh "docker push wsassi/gestion_station_ski_front "
+            }
+        }
         // stage("Docker run app"){
         //   steps{
         //      sh "docker pull wsassi/gestionskifront:latest"
