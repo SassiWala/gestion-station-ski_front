@@ -8,7 +8,9 @@ COPY package.json /gestion_station_ski_front/
 
 RUN npm install
 
-EXPOSE 3001
+ENV REACT_APP_API_ENDPOINT="http://192.168.33.10:8089/api/piste"
+
+EXPOSE 3006
 
 CMD ["npm", "start"]
 
